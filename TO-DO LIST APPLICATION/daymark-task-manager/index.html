@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daymark - Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app">
+        <header class="topbar">
+            <div class="brand">
+                <span class="logo">✓</span>
+                <span>daymark</span>
+            </div>
+
+            <button class="icon-btn" id="themeBtn">
+                ☾ <span id="themeLabel">Dark mode</span>
+            </button>
+        </header>
+
+        <section class="hero">
+            <div>
+                <p class="eyebrow">YOUR PERSONAL WORKSPACE</p>
+                <h1>Make today count.</h1>
+                <p class="subtitle">
+                    A little progress each day adds up to big results.
+                </p>
+            </div>
+
+            <button class="primary" id="newTaskBtn">
+                + Add a task
+            </button>
+        </section>
+
+        <section class="stats">
+            <div class="stat">
+                <div class="stat-heading">
+                    Total tasks <span>▤</span>
+                </div>
+                <h2 id="totalCount">0</h2>
+                <p>On your list</p>
+            </div>
+
+            <div class="stat">
+                <div class="stat-heading">
+                    Completed <span>✓</span>
+                </div>
+                <h2 id="completedCount">0</h2>
+                <p>Things you've finished</p>
+            </div>
+
+            <div class="stat">
+                <div class="stat-heading">
+                    Pending <span>◷</span>
+                </div>
+                <h2 id="pendingCount">0</h2>
+                <p>Still to do</p>
+            </div>
+        </section>
+
+        <main class="workspace">
+
+            <section class="task-panel">
+                <div class="panel-heading">
+                    <h2>Your tasks</h2>
+                    <span class="count-pill" id="visibleCount">
+                        0 tasks
+                    </span>
+                </div>
+
+                <div class="toolbar">
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search tasks..."
+                        aria-label="Search tasks"
+                    >
+
+                    <select id="statusFilter" aria-label="Filter status">
+                        <option value="all">All statuses</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                    </select>
+
+                    <select id="categoryFilter" aria-label="Filter category">
+                        <option value="all">All categories</option>
+                        <option value="Work">Work</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Study">Study</option>
+                        <option value="Health">Health</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div id="taskList" class="task-list"></div>
+            </section>
+
+            <aside class="side-panel" id="editorPanel">
+                <h2 id="formHeading">Create a task</h2>
+                <p class="muted">Write it down. Make it happen.</p>
+
+                <form id="taskForm" novalidate>
+                    <input type="hidden" id="taskId">
+
+                    <div class="form-group">
+                        <label for="taskTitle">Task name *</label>
+                        <input
+                            type="text"
+                            id="taskTitle"
+                            maxlength="100"
+                            placeholder="e.g. Finish JavaScript practice"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskDescription">
+                            Description (optional)
+                        </label>
+                        <textarea
+                            id="taskDescription"
+                            maxlength="400"
+                            placeholder="Add a few details..."
+                        ></textarea>
+                    </div>
+
+                    <div class="two-col">
+                        <div class="form-group">
+                            <label for="taskCategory">Category</label>
+                            <select id="taskCategory">
+                                <option>Personal</option>
+                                <option>Work</option>
+                                <option>Study</option>
+                                <option>Health</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="taskPriority">Priority</label>
+                            <select id="taskPriority">
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskDue">Due date (optional)</label>
+                        <input type="date" id="taskDue">
+                    </div>
+
+                    <p id="formError" class="error" role="alert"></p>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="primary" id="saveBtn">
+                            Add task
+                        </button>
+
+                        <button
+                            type="button"
+                            class="secondary"
+                            id="cancelBtn"
+                            hidden
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+
+                <div class="progress-section">
+                    <strong>Today's progress</strong>
+
+                    <div class="progress-track">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+
+                    <div class="progress-caption">
+                        <span id="progressText">
+                            No tasks completed yet
+                        </span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <footer>
+            Your tasks stay on this device · Powered by Local Storage
+        </footer>
+    </div>
+
+    <div id="toast" class="toast" role="status"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
